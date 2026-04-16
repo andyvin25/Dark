@@ -17,11 +17,12 @@ jobs:
       - name: Setup GraalVM
         uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '21'
-          distribution: 'graalvm-community' # Sets up both Java 21 AND Native Image Builder
+          java-version: '25'
+          distribution: 'graalvm-community' 
           cache: 'maven'
 
       - name: Build Native Image
+        # This completely natively builds your environment using the installed Maven
         run: PROFILE_STATE=prod ./mvnw clean -Pnative native:compile -Dmaven.test.skip=true
 
       - name: List target

@@ -1,6 +1,9 @@
 {
   "reflection": [
     {
+      "type": "Configurable"
+    },
+    {
       "type": "boolean"
     },
     {
@@ -2952,6 +2955,9 @@
       "type": "java.lang.Comparable[]"
     },
     {
+      "type": "java.lang.Configurable"
+    },
+    {
       "type": "java.lang.Deprecated"
     },
     {
@@ -3387,9 +3393,6 @@
       "type": "java.security.AlgorithmParametersSpi"
     },
     {
-      "type": "java.security.SecureClassLoader"
-    },
-    {
       "type": "java.security.interfaces.RSAPrivateKey"
     },
     {
@@ -3708,9 +3711,6 @@
     },
     {
       "type": "jdk.internal.ValueBased"
-    },
-    {
-      "type": "jdk.internal.loader.BuiltinClassLoader"
     },
     {
       "type": "jdk.internal.loader.ClassLoaders$AppClassLoader"
@@ -7552,6 +7552,9 @@
       "type": "org.springframework.aop.support.AbstractPointcutAdvisor"
     },
     {
+      "type": "org.springframework.aot.generate.Generated"
+    },
+    {
       "type": "org.springframework.aot.hint.annotation.Reflective"
     },
     {
@@ -7631,6 +7634,9 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "org.springframework.beans.factory.aspectj.Configurable"
     },
     {
       "type": "org.springframework.beans.factory.aspectj.ConfigurableObject"
@@ -11072,9 +11078,6 @@
       ]
     },
     {
-      "type": "org.springframework.data.mapping.PersistentPropertyAccessor"
-    },
-    {
       "type": "org.springframework.data.mapping.context.AbstractMappingContext"
     },
     {
@@ -12534,9 +12537,6 @@
     },
     {
       "type": "org.springframework.util.AntPathMatcher"
-    },
-    {
-      "type": "org.springframework.util.Assert"
     },
     {
       "type": "org.springframework.util.ConcurrentReferenceHashMap$Segment[]"
@@ -14538,6 +14538,15 @@
       "glob": "org/apache/tomcat/websocket/server/LocalStrings.properties"
     },
     {
+      "glob": "org/aspectj/weaver/weaver-messages.properties"
+    },
+    {
+      "glob": "org/aspectj/weaver/weaver-messages_en.properties"
+    },
+    {
+      "glob": "org/aspectj/weaver/weaver-messages_en_US.properties"
+    },
+    {
       "glob": "org/hibernate/boot/model/relational/ExportableProducer.class"
     },
     {
@@ -14671,6 +14680,9 @@
     },
     {
       "glob": "org/springframework/beans/factory/config/BeanFactoryPostProcessor.class"
+    },
+    {
+      "glob": "org/springframework/boot/EnvironmentPostProcessor.class"
     },
     {
       "glob": "org/springframework/boot/autoconfigure/AbstractDependsOnBeanFactoryPostProcessor.class"
@@ -15315,6 +15327,9 @@
       "glob": "org/springframework/context/ApplicationContextAware.class"
     },
     {
+      "glob": "org/springframework/context/ApplicationContextInitializer.class"
+    },
+    {
       "glob": "org/springframework/context/EnvironmentAware.class"
     },
     {
@@ -15369,6 +15384,9 @@
       "glob": "org/springframework/data/jpa/repository/JpaRepository.class"
     },
     {
+      "glob": "org/springframework/data/jpa/repository/aot/AotRepositoryFragmentSupport.class"
+    },
+    {
       "glob": "org/springframework/data/jpa/repository/config/EnableJpaAuditing.class"
     },
     {
@@ -15381,10 +15399,19 @@
       "glob": "org/springframework/data/jpa/util/JpaMetamodelCacheCleanup.class"
     },
     {
+      "glob": "org/springframework/data/mapping/PersistentPropertyAccessor.class"
+    },
+    {
+      "glob": "org/springframework/data/mapping/model/ClassGeneratingEntityInstantiator$ObjectInstantiator.class"
+    },
+    {
       "glob": "org/springframework/data/repository/CrudRepository.class"
     },
     {
       "glob": "org/springframework/data/repository/ListCrudRepository.class"
+    },
+    {
+      "glob": "org/springframework/data/repository/core/support/RepositoryFactoryBeanSupport$RepositoryFragmentsFunction.class"
     },
     {
       "glob": "org/springframework/data/web/config/EnableSpringDataWebSupport$QuerydslActivator.class"
@@ -15668,6 +15695,9 @@
     },
     {
       "bundle": "org.apache.tomcat.websocket.server.LocalStrings"
+    },
+    {
+      "bundle": "org.aspectj.weaver.weaver-messages"
     }
   ]
 }
