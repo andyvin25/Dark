@@ -9,7 +9,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,9 +98,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 response.setContentType("application/json");
                 response.getWriter().write("Invalid token. Please log in again.");
                 response.getWriter().flush();
-            } else {
-                handlerExceptionResolver.resolveException(request, response, null, exception);
             }
+            handlerExceptionResolver.resolveException(request, response, null, exception);
         }
     }
 
