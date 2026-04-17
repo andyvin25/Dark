@@ -64,7 +64,6 @@ public class AuthController {
         permissions.add(BuyerUpdate);
         permissions.add(BuyerDelete);
         Role role = roleService.getOrCreateRoleAccount(Role.RoleEnum.BUYER, permissions);
-        System.out.println("role in controller= " + role);
         userService.createUserAccount(role, mapper, accountDTO);
         return ResponseHandler.generateResponse("Register Successfully", HttpStatus.CREATED, "");
     }
