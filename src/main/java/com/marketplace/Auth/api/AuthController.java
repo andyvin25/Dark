@@ -124,12 +124,15 @@ public class AuthController {
         tokenCookie.setMaxAge(365 * 24 * 60 * 60);
         tokenCookie.setSecure(true);
         tokenCookie.setPath("/");
+        tokenCookie.setAttribute("SameSite", "None");
         response.addCookie(tokenCookie);
 
         Cookie refreshTokenCookie = new Cookie("refresh_token", authenticatedUser.refreshToken());
         refreshTokenCookie.setMaxAge(365 * 24 * 60 * 60);
         refreshTokenCookie.setSecure(true);
         refreshTokenCookie.setPath("/");
+        refreshTokenCookie.setAttribute("SameSite", "None");
+
         response.addCookie(refreshTokenCookie);
 
         return ResponseHandler.generateResponse("Login Successfully", HttpStatus.OK, "");
@@ -192,12 +195,15 @@ public class AuthController {
         tokenCookie.setMaxAge(365 * 24 * 60 * 60);
         tokenCookie.setSecure(true);
         tokenCookie.setPath("/");
+        tokenCookie.setAttribute("SameSite", "None");
         response.addCookie(tokenCookie);
 
         Cookie refreshTokenCookie = new Cookie("refresh_token", authenticatedUser.refreshToken());
         refreshTokenCookie.setMaxAge(365 * 24 * 60 * 60);
         refreshTokenCookie.setSecure(true);
+        refreshTokenCookie.setAttribute("SameSite", "None");
         refreshTokenCookie.setPath("/");
+
         response.addCookie(refreshTokenCookie);
 
         return new ResponseEntity<>(HttpStatus.OK);
