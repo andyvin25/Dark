@@ -1,10 +1,13 @@
 package com.marketplace.StoreOperatingHours.api;
 
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 
+@RegisterReflectionForBinding
 public record StoreRequestOperatingHoursDto(
    @JsonProperty
    @Nullable

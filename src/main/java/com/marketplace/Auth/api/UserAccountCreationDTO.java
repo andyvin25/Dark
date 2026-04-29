@@ -1,11 +1,14 @@
 package com.marketplace.Auth.api;
 
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import tools.jackson.databind.PropertyNamingStrategies;
 import tools.jackson.databind.annotation.JsonNaming;
 
+@RegisterReflectionForBinding
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record UserAccountCreationDTO(
         @NotBlank(message = "Invalid email: empty null")

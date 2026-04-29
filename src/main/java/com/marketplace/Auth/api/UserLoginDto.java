@@ -1,10 +1,13 @@
 package com.marketplace.Auth.api;
 
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
+
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+@RegisterReflectionForBinding
 public record UserLoginDto(
         @NotBlank(message = "Invalid email: empty null")
         @Email(message = "Invalid Email")

@@ -1,11 +1,14 @@
 package com.marketplace.Store_pages.api;
 
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
+
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+@RegisterReflectionForBinding
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record PageRequestDto(
     @NotBlank(message = "the name shouldn't be empty")
