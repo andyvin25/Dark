@@ -4,7 +4,6 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -15,7 +14,6 @@ import java.util.*;
 import java.util.function.Function;
 
 @Component("Jwt util in authentication")
-@RegisterReflectionForBinding
 @Slf4j
 public class JwtUtil {
 
@@ -50,10 +48,10 @@ public class JwtUtil {
                 .compact();
     }
 
-    public String generateRefreshToken(String username) {
+    public String generateRefreshToken(String id) {
         Date now = new Date();
         return Jwts.builder()
-                .subject(username)
+                .subject(id)
                 .issuedAt(now)
                 .expiration(new Date((new Date()).getTime() + jwtRefreshTokenExpirationMs))
                 .signWith(refreshKey, Jwts.SIG.HS256)

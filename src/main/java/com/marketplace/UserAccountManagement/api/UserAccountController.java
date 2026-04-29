@@ -281,12 +281,12 @@ public class UserAccountController {
                     )) }
             )
     })
-    @PreAuthorize("hasAuthorize('ADMIN_DELETE', 'BUYER_DELETE')")
+//    @PreAuthorize("hasAnyAuthorize('ADMIN_DELETE', 'BUYER_DELETE')")
     @DeleteMapping("/users/{user_id}/addresses/address_id")
     public ResponseEntity<String> deleteAddress(@PathVariable("user_id") String id, @RequestParam("address_id") String addressId) {
         User foundUser = userService.getUserById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id "+id));
-        if (foundUser.getIsDeleted()) {
+        if (foundUser.getIsDeleted() != null) {
             throw new IllegalArgumentException("User has already been deleted");
         }
         addressService.deleteAddress(addressId);

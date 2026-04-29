@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 
-@RegisterReflectionForBinding
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record PageRequestDto(
     @NotBlank(message = "the name shouldn't be empty")

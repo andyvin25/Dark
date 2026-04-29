@@ -43,7 +43,7 @@ public class AuthService {
         );
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User getUserByEmail = userService.getActiveUserByEmail(userDetails.getUsername());
-        String newRefreshToken = jwtUtil.generateRefreshToken(userDetails.getUsername());
+        String newRefreshToken = jwtUtil.generateRefreshToken(getUserByEmail.getId());
 
         String refreshToken = refreshTokenService.createRefreshToken(
                 getUserByEmail, newRefreshToken).getToken();
@@ -57,9 +57,8 @@ public class AuthService {
             refreshTokenService.deleteRefreshToken(tokenFound);
             throw new RefreshTokenExpireException("Refresh token is expired, you need to login again");
         }
-        UserDetails userDetails = (UserDetails) tokenFound.getUser();
         String newJwt = jwtUtil.generateToken(tokenFound.getUser());
-        String newRefreshToken = jwtUtil.generateRefreshToken(userDetails.getUsername());
+        String newRefreshToken = jwtUtil.generateRefreshToken(tokenFound.getUser().getId());
         tokenFound.setToken(newRefreshToken);
         tokenFound.setExpiredAt(LocalDateTime.now().plusSeconds(jwtRefreshTokenExpirationMs));
         refreshTokenService.saveRefreshToken(tokenFound);

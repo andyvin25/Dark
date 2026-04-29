@@ -7,10 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 
-// all of dto need to be patternize 
-@RegisterReflectionForBinding
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record StoreRequestDTO(
     @NotBlank(message = "Invalid store name: Empty/Null")

@@ -7,8 +7,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -112,30 +110,13 @@ public class AuthController {
             )
     })
     @PostMapping("/login")
-    public ResponseEntity<Object> signIn(@RequestBody @Valid UserLoginDto userLoginDto, @CookieValue(value = "token", required = false) String token, HttpServletResponse response) {
-        if (token != null) {
+    public ResponseEntity<Object> signIn(@RequestBody @Valid UserLoginDto userLoginDto) {
+        if (userLoginDto.token() != null) {
             return ResponseEntity.ok("You are already logged in");
         }
         TokenDto authenticatedUser = authService.authenticateUser(userLoginDto);
 
-        Cookie tokenCookie = new Cookie("token", authenticatedUser.userToken());
-
-//        Adjust cookie later in production
-        tokenCookie.setMaxAge(365 * 24 * 60 * 60);
-        tokenCookie.setSecure(true);
-        tokenCookie.setPath("/");
-        tokenCookie.setAttribute("SameSite", "None");
-        response.addCookie(tokenCookie);
-
-        Cookie refreshTokenCookie = new Cookie("refresh_token", authenticatedUser.refreshToken());
-        refreshTokenCookie.setMaxAge(365 * 24 * 60 * 60);
-        refreshTokenCookie.setSecure(true);
-        refreshTokenCookie.setPath("/");
-        refreshTokenCookie.setAttribute("SameSite", "None");
-
-        response.addCookie(refreshTokenCookie);
-
-        return ResponseHandler.generateResponse("Login Successfully", HttpStatus.OK, "");
+        return ResponseHandler.generateResponse("Login Successfully", HttpStatus.OK, authenticatedUser);
     }
 
     @Operation(summary = "User logout and clear authentication cookies")
@@ -162,51 +143,25 @@ public class AuthController {
             )
     })
     @DeleteMapping("/logout")
-    public ResponseEntity<Object> userLogout(@CookieValue(value = "refresh_token", required = false) String token, HttpServletResponse response) {
+    public ResponseEntity<Object> userLogout(@RequestBody(required = false) String token) {
         if (token == null) {
             return ResponseEntity.ok("You are not logged in");
         }
         authService.userLogout(token);
-        Cookie tokenCookie = new Cookie("token", "");
 
-//        Adjust cookie later in production
-        tokenCookie.setMaxAge(0);
-        tokenCookie.setPath("/");
-        response.addCookie(tokenCookie);
-
-        Cookie refreshTokenCookie = new Cookie("refresh_token", "");
-        refreshTokenCookie.setMaxAge(0);
-        refreshTokenCookie.setPath("/");
-        response.addCookie(refreshTokenCookie);
 //        return ResponseHandler.generateResponse("", HttpStatus.NO_CONTENT, "");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/refresh/refresh_token")
-    public ResponseEntity<Object> refreshToken(@RequestParam("refresh_token") String refreshToken, HttpServletResponse response) {
+    public ResponseEntity<Object> refreshToken(@RequestParam("refresh_token") String refreshToken) {
         if (refreshToken == null || refreshToken.isBlank()) {
             return ResponseHandler.generateResponse("User hasn't logged in", HttpStatus.BAD_REQUEST, "");
         }
         TokenDto authenticatedUser = authService.generateRefreshToken(refreshToken);
 
-        Cookie tokenCookie = new Cookie("token", authenticatedUser.userToken());
+        return ResponseHandler.generateResponse("Login Successfully", HttpStatus.OK, authenticatedUser);
 
-//        Adjust cookie later in production
-        tokenCookie.setMaxAge(365 * 24 * 60 * 60);
-        tokenCookie.setSecure(true);
-        tokenCookie.setPath("/");
-        tokenCookie.setAttribute("SameSite", "None");
-        response.addCookie(tokenCookie);
-
-        Cookie refreshTokenCookie = new Cookie("refresh_token", authenticatedUser.refreshToken());
-        refreshTokenCookie.setMaxAge(365 * 24 * 60 * 60);
-        refreshTokenCookie.setSecure(true);
-        refreshTokenCookie.setAttribute("SameSite", "None");
-        refreshTokenCookie.setPath("/");
-
-        response.addCookie(refreshTokenCookie);
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 //    @GetMapping("/csrf_token")

@@ -36,9 +36,6 @@ public class AddressService {
     public void deleteAddress(String id) {
         Address address = getAddressById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Address not found with this id" + id));
-        if (address.getIsDeleted() == true) {
-            throw new ResourceNotFoundException("Address with this id" + id + "has already been deleted");
-        }
         address.setIsDeleted(true);
         saveAddress(address);
     }
