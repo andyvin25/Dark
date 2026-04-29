@@ -108,7 +108,7 @@ public class GlobalHandlerController {
 
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<Object> handleUsernameNotFoundException(UsernameNotFoundException ex) {
-        log.error("No resource found: {}", ex.getCause());
+        log.error("No resource found: {}", ex.getMessage());
         return new ResponseEntity<>("Resource Not found", HttpStatus.NOT_FOUND);
     }
 
